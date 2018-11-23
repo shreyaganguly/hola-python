@@ -2,6 +2,7 @@ import random
 import math
 
 
+
 def init_game():
     print("Welcome to Rock, Paper, Scissor Game!!!")
     try:
@@ -11,7 +12,7 @@ def init_game():
     except KeyboardInterrupt:
         print("Keyboard Interrupt! Exiting!")
         return
-    except Exception as e:
+    except Exception:
         print("Wrong input! Please correct and try again")
         return
 
@@ -27,26 +28,30 @@ def play_game(playing_times):
         if user_choice in valid_choices:
             computer_choice = random.choice(valid_choices)
             user_win_status = evaluate_output(computer_choice, user_choice)
-            print({0: "DRAW!!!!", 1: "YOU WON!!!!", -1: "YOU LOST!!!!"}[user_win_status])
+            print(get_game_status(user_win_status))
             if user_win_status == 1:
                 user_wins = user_wins + 1
             if user_win_status == -1:
                 computer_wins = computer_wins + 1
             if win_number == user_wins:
-                print()
-                print("YOU WON THE LEAGUE!!!! Yaay!!")
+                print_outcome(1)
                 return
             if win_number == computer_wins:
-                print()
-                print("YOU LOST THE LEAGUE!!!! Hard luck!!")
+                print_outcome(-1)
                 return
             print()
         else:
-            print("You have entered something stupid!! Please retry the game!")
+            print("Wrong input! Please correct and try again")
             return
         playing_times -= 1
-    print()
-    print("THE LEAGUE IS A DRAW!!!")
+    if user_wins > computer_wins:
+        print_outcome(1)
+        return
+    if user_wins < computer_wins:
+        print_outcome(-1)
+        return
+    print_outcome(0)
+    return
 
 
 def evaluate_output(cc, uc):
@@ -73,5 +78,20 @@ def prettify(input):
         's': "Scissor(8<)"
     }[input]
 
+def get_game_status(user_win_status):
+    return {
+        0: "DRAW!!!!",
+        1: "YOU WON!!!!",
+        -1: "YOU LOST!!!!"
+    }[user_win_status]
+
+def print_outcome(user_win_status):
+    outcome = {
+        0: "THE LEAGUE IS A DRAW!!!",
+        -1: "YOU LOST THE LEAGUE!!!! Hard luck!!",
+        1: "YOU WON THE LEAGUE!!!! Yaay!!"
+    }[user_win_status]
+    print()
+    print(outcome)
 
 init_game()
