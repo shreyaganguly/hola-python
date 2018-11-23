@@ -59,3 +59,29 @@ def test_print_outcome(capsys):
     rock_papers_scissors.print_outcome(1)
     captured = capsys.readouterr()
     assert "YOU WON THE LEAGUE!!!! Yaay!!" in captured.out
+
+def test_evaluate_per_outcome_result():
+    assert rock_papers_scissors.evaluate_per_outcome_result(0, 1, 2)[0] == 1
+    assert rock_papers_scissors.evaluate_per_outcome_result(0, 1, 2)[1] == 2
+    assert rock_papers_scissors.evaluate_per_outcome_result(-1, 1, 2)[0] == 1
+    assert rock_papers_scissors.evaluate_per_outcome_result(-1, 1, 2)[1] == 3
+    assert rock_papers_scissors.evaluate_per_outcome_result(1, 1, 2)[0] == 2
+    assert rock_papers_scissors.evaluate_per_outcome_result(1, 1, 2)[1] == 2
+
+def test_evaluate_league_outcome(capsys):
+    rock_papers_scissors.evaluate_league_outcome(1,0,1,2)
+    captured = capsys.readouterr()
+    assert "YOU LOST THE LEAGUE!!!! Hard luck!!" in captured.out
+    rock_papers_scissors.evaluate_league_outcome(1,0,2,1)
+    captured = capsys.readouterr()
+    assert "YOU WON THE LEAGUE!!!! Yaay!!" in captured.out
+    rock_papers_scissors.evaluate_league_outcome(1,0,1,1)
+    captured = capsys.readouterr()
+    assert "THE LEAGUE IS A DRAW!!!" in captured.out
+    rock_papers_scissors.evaluate_league_outcome(0,2,1,2)
+    captured = capsys.readouterr()
+    assert "YOU LOST THE LEAGUE!!!! Hard luck!!" in captured.out
+    rock_papers_scissors.evaluate_league_outcome(0,2,2,1)
+    captured = capsys.readouterr()
+    assert "YOU WON THE LEAGUE!!!! Yaay!!" in captured.out
+

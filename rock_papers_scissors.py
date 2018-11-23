@@ -29,29 +29,42 @@ def play_game(playing_times):
             computer_choice = random.choice(valid_choices)
             user_win_status = evaluate_output(computer_choice, user_choice)
             print(get_game_status(user_win_status))
-            if user_win_status == 1:
-                user_wins = user_wins + 1
-            if user_win_status == -1:
-                computer_wins = computer_wins + 1
-            if win_number == user_wins:
-                print_outcome(1)
+            user_wins, computer_wins = evaluate_per_outcome_result(user_win_status, user_wins, computer_wins)
+            if evaluate_league_outcome(0, win_number, user_wins, computer_wins) == 1:
                 return
-            if win_number == computer_wins:
-                print_outcome(-1)
-                return
-            print()
         else:
             print("Wrong input! Please correct and try again")
             return
         playing_times -= 1
-    if user_wins > computer_wins:
+    evaluate_league_outcome(1, 0, user_wins, computer_wins)
+
+
+def evaluate_league_outcome(end_of_match, win_number, user_wins, computer_wins):
+    if end_of_match == 1:
+        if user_wins > computer_wins:
+            print_outcome(1)
+            return 1
+        if user_wins < computer_wins:
+            print_outcome(-1)
+            return 1
+        print_outcome(0)
+        return 1
+    if win_number == user_wins:
         print_outcome(1)
-        return
-    if user_wins < computer_wins:
+        return 1
+    if win_number == computer_wins:
         print_outcome(-1)
-        return
-    print_outcome(0)
-    return
+        return 1
+    print()
+
+
+def evaluate_per_outcome_result(user_win_status, user_wins, computer_wins):
+    if user_win_status == 1:
+        return user_wins + 1, computer_wins
+    if user_win_status == -1:
+        return user_wins, computer_wins + 1
+
+    return user_wins, computer_wins
 
 
 def evaluate_output(cc, uc):
@@ -71,6 +84,7 @@ def evaluate_output(cc, uc):
             return 1
         return -1
 
+
 def prettify(input):
     return {
         'r': "Rock(O)",
@@ -78,12 +92,14 @@ def prettify(input):
         's': "Scissor(8<)"
     }[input]
 
+
 def get_game_status(user_win_status):
     return {
         0: "DRAW!!!!",
         1: "YOU WON!!!!",
         -1: "YOU LOST!!!!"
     }[user_win_status]
+
 
 def print_outcome(user_win_status):
     outcome = {
