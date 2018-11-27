@@ -3,7 +3,6 @@ import re
 
 def init_secret_messages_game():
     print("Welcome to Secret Messages!!!")
-    # TODO: add exceptions, and add infinite loop choice
     choice = input("Please enter if you want to encrypt(e) or decrypt(d) your messages: ")
     if choice != "e" and choice != "d":
         print("Wrong input! Please correct and try again")
