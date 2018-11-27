@@ -13,6 +13,5 @@ $ python rock_papers_scissors.py
 ```
 
 #### Requirements
-
 * Python 3.6+
 * pytest
