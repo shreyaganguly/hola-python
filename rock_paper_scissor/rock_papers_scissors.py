@@ -3,7 +3,7 @@ import math
 
 
 
-def init_game():
+def init_rock_paper_scissor_game():
     print("Welcome to Rock, Paper, Scissor Game!!!")
     try:
         playing_times = int(input("Enter number of times you want to play the game? Maximum wins among the lot wins the league! "))
@@ -110,4 +110,4 @@ def print_outcome(user_win_status):
     print()
     print(outcome)
 
-init_game()
+init_rock_paper_scissor_game()

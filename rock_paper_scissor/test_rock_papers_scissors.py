@@ -1,8 +1,6 @@
 import rock_papers_scissors
 import mock
 import builtins
-import pytest
-import sys
 
 def test_prettify():
     assert rock_papers_scissors.prettify("r") == "Rock(O)"
@@ -30,7 +28,7 @@ def test_get_game_status():
 
 def test_init_game(capsys):
     with mock.patch.object(builtins, 'input', lambda _: 'dfg'):
-        rock_papers_scissors.init_game()
+        rock_papers_scissors.init_rock_paper_scissor_game()
         captured = capsys.readouterr()
         assert "Wrong input! Please correct and try again\n" in captured.out
 
@@ -84,4 +82,3 @@ def test_evaluate_league_outcome(capsys):
     rock_papers_scissors.evaluate_league_outcome(0,2,2,1)
     captured = capsys.readouterr()
     assert "YOU WON THE LEAGUE!!!! Yaay!!" in captured.out
-
